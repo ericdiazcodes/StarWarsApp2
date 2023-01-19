@@ -24,18 +24,21 @@ class StarWarsRepositoryTests {
         fakeStarWarsNetwork.peopleResponse = PeopleResponseFixtures.success
 
         // When
-        val result = testSubject.getPeople()
+        val result = testSubject.getPeople().execute().body()
 
         // Then
         Assert.assertEquals(PeopleResponseFixtures.peopleResponse, result)
     }
 
-    @Test(expected = IllegalStateException::class)
-    fun `Given an error response, When getPeople is called, Then return expected Error`() {
+    @Test
+    fun `Given an error response, When getPeople is called, Then return expected error code`() {
         // Given
         fakeStarWarsNetwork.peopleResponse = PeopleResponseFixtures.error
 
         // When
-        testSubject.getPeople()
+        val result = testSubject.getPeople().execute().code()
+
+        // Then
+        Assert.assertEquals(result,400)
     }
 }
