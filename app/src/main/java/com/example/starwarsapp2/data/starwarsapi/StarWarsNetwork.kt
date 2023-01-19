@@ -17,7 +17,7 @@ class StarWarsNetworkImpl : StarWarsNetwork {
             level = HttpLoggingInterceptor.Level.BODY
         }).build()
 
-    override val starWarsApi = RetrofitProvider.getRetrofit(
+    override val starWarsApi: StarWarsApi = RetrofitProvider.getRetrofit(
         baseUrl = BASE_URL,
         client = client,
         converterFactories = listOf(GsonConverterFactory.create()),

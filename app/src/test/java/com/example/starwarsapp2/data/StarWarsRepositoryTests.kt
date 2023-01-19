@@ -3,6 +3,7 @@ package com.example.starwarsapp2.data
 import com.example.starwarsapp2.data.fake.FakeStarWarsNetwork
 import com.example.starwarsapp2.data.model.PeopleResponseFixtures
 import com.example.starwarsapp2.data.starwarsapi.repository.StarWarsRepository
+import com.example.starwarsapp2.data.starwarsapi.repository.StarWarsRepositoryImpl
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -15,7 +16,7 @@ class StarWarsRepositoryTests {
     @Before
     fun setUp() {
         fakeStarWarsNetwork = FakeStarWarsNetwork()
-        testSubject = StarWarsRepository(fakeStarWarsNetwork)
+        testSubject = StarWarsRepositoryImpl(fakeStarWarsNetwork)
     }
 
     @Test
@@ -24,18 +25,21 @@ class StarWarsRepositoryTests {
         fakeStarWarsNetwork.peopleResponse = PeopleResponseFixtures.success
 
         // When
-        val result = testSubject.getPeople()
+        val result = testSubject.getPeople().execute().body()
 
         // Then
         Assert.assertEquals(PeopleResponseFixtures.peopleResponse, result)
     }
 
-    @Test(expected = IllegalStateException::class)
-    fun `Given an error response, When getPeople is called, Then return expected Error`() {
+    @Test
+    fun `Given an error response, When getPeople is called, Then return expected error code`() {
         // Given
         fakeStarWarsNetwork.peopleResponse = PeopleResponseFixtures.error
 
         // When
-        testSubject.getPeople()
+        val result = testSubject.getPeople().execute().code()
+
+        // Then
+        Assert.assertEquals(result, 400)
     }
 }
