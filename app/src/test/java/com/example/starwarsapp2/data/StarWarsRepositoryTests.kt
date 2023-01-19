@@ -3,6 +3,7 @@ package com.example.starwarsapp2.data
 import com.example.starwarsapp2.data.fake.FakeStarWarsNetwork
 import com.example.starwarsapp2.data.model.PeopleResponseFixtures
 import com.example.starwarsapp2.data.starwarsapi.repository.StarWarsRepository
+import com.example.starwarsapp2.data.starwarsapi.repository.StarWarsRepositoryImpl
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -15,7 +16,7 @@ class StarWarsRepositoryTests {
     @Before
     fun setUp() {
         fakeStarWarsNetwork = FakeStarWarsNetwork()
-        testSubject = StarWarsRepository(fakeStarWarsNetwork)
+        testSubject = StarWarsRepositoryImpl(fakeStarWarsNetwork)
     }
 
     @Test
@@ -39,6 +40,6 @@ class StarWarsRepositoryTests {
         val result = testSubject.getPeople().execute().code()
 
         // Then
-        Assert.assertEquals(result,400)
+        Assert.assertEquals(result, 400)
     }
 }

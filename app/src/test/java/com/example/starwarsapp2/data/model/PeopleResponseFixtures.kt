@@ -18,9 +18,9 @@ object PeopleResponseFixtures {
         result = listOf(person)
     )
 
-    val success = Response.success(peopleResponse)
+    val success: Response<PeopleResponse> = Response.success(peopleResponse)
 
-    val error = Response.error<PeopleResponse>(
+    val error: Response<PeopleResponse> = Response.error(
         400,
         ResponseBody.Companion.create(null, "Random Test Error")
     )

@@ -4,9 +4,14 @@ import com.example.starwarsapp2.data.starwarsapi.StarWarsNetwork
 import com.example.starwarsapp2.data.starwarsapi.response.PeopleResponse
 import retrofit2.Call
 
-class StarWarsRepository(private val starWarsNetwork: StarWarsNetwork) {
+interface StarWarsRepository {
 
-    fun getPeople(): Call<PeopleResponse> {
+    fun getPeople(): Call<PeopleResponse>
+}
+
+class StarWarsRepositoryImpl(private val starWarsNetwork: StarWarsNetwork) : StarWarsRepository {
+
+    override fun getPeople(): Call<PeopleResponse> {
         return starWarsNetwork.starWarsApi.getPeople()
     }
 }
