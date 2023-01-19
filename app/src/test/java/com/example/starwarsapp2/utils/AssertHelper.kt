@@ -2,7 +2,7 @@ package com.example.starwarsapp2.utils
 
 import org.junit.Assert
 
-object NegativeAssert {
+object AssertHelper {
 
-    fun assetNoExecution(message: String) = Assert.fail(message)
+    fun assetNoExecution() = Assert.fail("This should not execute.")
 }
